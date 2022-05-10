@@ -27,10 +27,6 @@ def calculateAngle(a, b, c):
     return angle
 
 
-def switchArm():
-    print("Hello")
-
-
 def runCurl():
     main(mp_pose.PoseLandmark.RIGHT_ELBOW.value,
          mp_pose.PoseLandmark.RIGHT_SHOULDER.value,
@@ -90,7 +86,7 @@ def trackAngle(point1, point2, point3, exercise, mistakeCounter):
 
 def main(startPoint, midPoint, endPoint, exercise):
     # Take video from webcam
-    cap = cv2.VideoCapture(2)
+    cap = cv2.VideoCapture(1)
     prevTime = 0
     mistakeCounter = 1
 
