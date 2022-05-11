@@ -13,10 +13,10 @@ pygame.init()
 pygame.mixer.music.load('buzzer.wav')
 
 
-def calculateAngle(a, b, c):
-    a = np.array(a)  ## Start
-    b = np.array(b)  ## Mid
-    c = np.array(c)  ## End
+def calculateAngle(startPoint, midPoint, endPoint):
+    a = np.array(startPoint)    # Start
+    b = np.array(midPoint)      # Mid
+    c = np.array(endPoint)      # End
 
     radians = np.arctan2(c[1] - b[1], c[0] - b[0]) - np.arctan2(a[1] - b[1], a[0] - b[0])
     angle = np.abs(radians * 180.0 / np.pi)
@@ -48,35 +48,34 @@ def runPushUp():
          exercise="PushUp")
 
 
-def trackAngle(point1, point2, point3, exercise, mistakeCounter):
-
+def trackAngle(startPoint, midPoint, endPoint, exercise, mistakeCounter):
     if exercise == "Curl":
-        if calculateAngle(point1, point2, point3) > 10:
+        if calculateAngle(startPoint, midPoint, endPoint) > 10:
             mistakeCounter = mistakeCounter + 1
             print(mistakeCounter)
             if mistakeCounter % 5 == 0:
                 print("Too wide!")
-                print(calculateAngle(point1, point2, point3))
+                print(calculateAngle(startPoint, midPoint, endPoint))
                 pygame.mixer.music.play()
         else:
             mistakeCounter = 1
     elif exercise == "Squat":
-        if calculateAngle(point1, point2, point3) < 90:
+        if calculateAngle(startPoint, midPoint, endPoint) < 90:
             mistakeCounter = mistakeCounter + 1
             print(mistakeCounter)
             if mistakeCounter % 5 == 0:
                 print("Too wide!")
-                print(calculateAngle(point1, point2, point3))
+                print(calculateAngle(startPoint, midPoint, endPoint))
                 pygame.mixer.music.play()
         else:
             mistakeCounter = 1
     elif exercise == "PushUp":
-        if calculateAngle(point1, point2, point3) < 170:
+        if calculateAngle(startPoint, midPoint, endPoint) < 170:
             mistakeCounter = mistakeCounter + 1
             print(mistakeCounter)
             if mistakeCounter % 5 == 0:
                 print("Too wide!")
-                print(calculateAngle(point1, point2, point3))
+                print(calculateAngle(startPoint, midPoint, endPoint))
                 pygame.mixer.music.play()
         else:
             mistakeCounter = 1
@@ -123,7 +122,7 @@ def main(startPoint, midPoint, endPoint, exercise):
                 point3 = [landmarks[endPoint].x], [
                     landmarks[endPoint].y]
 
-                mistakeCounter = trackAngle(point1,point2,point3, exercise, mistakeCounter)
+                mistakeCounter = trackAngle(point1, point2, point3, exercise, mistakeCounter)
 
             except:
                 pass
