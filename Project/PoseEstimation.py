@@ -53,7 +53,7 @@ def trackAngle(startPoint, midPoint, endPoint, exercise, mistakeCounter):
         if calculateAngle(startPoint, midPoint, endPoint) > 10:
             mistakeCounter = mistakeCounter + 1
             print(mistakeCounter)
-            if mistakeCounter % 5 == 0:
+            if mistakeCounter % 25 == 0:
                 print("Too wide!")
                 print(calculateAngle(startPoint, midPoint, endPoint))
                 pygame.mixer.music.play()
@@ -70,7 +70,7 @@ def trackAngle(startPoint, midPoint, endPoint, exercise, mistakeCounter):
         else:
             mistakeCounter = 1
     elif exercise == "PushUp":
-        if calculateAngle(startPoint, midPoint, endPoint) < 170:
+        if calculateAngle(startPoint, midPoint, endPoint) < 160:
             mistakeCounter = mistakeCounter + 1
             print(mistakeCounter)
             if mistakeCounter % 5 == 0:
@@ -85,7 +85,7 @@ def trackAngle(startPoint, midPoint, endPoint, exercise, mistakeCounter):
 
 def main(startPoint, midPoint, endPoint, exercise):
     # Take video from webcam
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0)
     prevTime = 0
     mistakeCounter = 1
 
@@ -128,14 +128,7 @@ def main(startPoint, midPoint, endPoint, exercise):
                 pass
 
             # Rendering detections
-            mp_drawing.draw_landmarks(
-                image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
 
-            # Show FPS count
-            currTime = time.time()
-            fps = 1 / (currTime - prevTime)
-            prevTime = currTime
-            cv2.putText(image, f'FPS: {int(fps)}', (20, 70), cv2.FONT_HERSHEY_PLAIN, 3, (0, 196, 255), 2)
 
             cv2.imshow('BlazePose', image)
 
